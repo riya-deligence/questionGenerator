@@ -1,102 +1,86 @@
-
-
 .footer {
-  /* left: 0;
-  bottom: 0; */
-position: absolute;
+  position: absolute;
+  bottom: 0;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #FBED55;
+  background-color: #fbed55;
   color: black;
   width: 100%;
-  height: 3.2rem;
-  font-size: 0.85vw;
-}
-.header {
+  height: 40px;
+  font-size: 16px;
   
+  
+}
+.footer p{
+margin: auto;
+  font-size: 1.2em;
+}
 
-  background-color:#116B99;
+.header {
+  background-color: #116b99;
   top: 0;
   right: 0;
-position: absolute;
+  position: absolute;
   display: flex;
-  
-  align-items: center;
-  
-  
+  z-index: 99;
+  overflow: hidden;
   width: 100%;
-  height: 5rem;
-  /* font-size: 50px; */
-  
+  height: auto;
 }
-.heading{
-  /*
+
+.heading {
+    /*
   font-size: 28px;
   color: white;
 
   font-weight: 400; */
   font-family: "proxima-soft,sans-serif";
   position: absolute;
-    top: -1vw;
-    font-size: 0.85vw;
-    border: none;
-    color: #292929;
-    /* left: ; */
-    background-color: #fff;
-    font-weight: 700;
-    text-transform: capitalize!important;
-    padding: 0.3rem 0.5rem;
-    border-radius: 5px;
-    box-shadow: 0 3px 22px 2px rgba(0,0,0,.12);
-    letter-spacing: -.02em;
-    width: auto!important;
-   
-}
-.topic{
-  /* margin-left: 0.2rem;
-  position: relative;
- border-radius: 5px;
- height: 2.5rem;
- width: 20rem;
-  flex: 1 1;
-  font-size: large;
-  size: 18px;
-  background-color: #fff;
-  outline: none;
+  top: -1vw;
+  font-size: 0.85vw;
   border: none;
-  padding: 5px 10px; */
+  color: #292929;
+  /* left: ; */
+  background-color: #fff;
+  font-weight: 700;
+  text-transform: capitalize !important;
+  padding: 0.3rem 0.5rem;
+  border-radius: 5px;
+  box-shadow: 0 3px 22px 2px rgba(0, 0, 0, 0.12);
+  letter-spacing: -0.02em;
+  width: auto !important;
+
+}
+
+.topic {
   outline: none;
-    font-size: 0.85vw;
-    border: 2px solid transparent;
-    letter-spacing: 0;
-    color: #292929;
-    margin-right: 2em;
-    width: 90%;
-    padding: 7px 20px 7px 10px!important;
-    border-radius: 3px;
-    font-weight: 500;
-    line-height: normal;
-
+  font-size: 0.85vw;
+  border: 2px solid transparent;
+  letter-spacing: 0;
+  color: #292929;
+  margin-right: 2em;
+  width: 90%;
+  padding: 7px 20px 7px 10px !important;
+  border-radius: 3px;
+  font-weight: 500;
+  line-height: normal;
 }
 
-.box{
-/* margin-top: 3rem;
-    display: grid;
-    grid-template-columns: 1fr 3fr; */
-    display: block;
-    background: #1F8BC3;
-    border-radius: 5px;
-    margin-top: 10%;
-    width: 25vw;
-    position: relative;
-    border: 2px solid transparent!important;
-    padding:2.5vw 2.5vw 2vw;
-    text-align: left;
-    box-shadow: 0 3px 33px rgba(95,82,82,.2)!important;
+.box {
+  display: block;
+  background: #1f8bc3;
+  border-radius: 5px;
+  margin-top: 10%;
+  width: 25vw;
+  position: relative;
+  border: 2px solid transparent !important;
+  padding: 2.5vw 2.5vw 2vw;
+  text-align: left;
+  box-shadow: 0 3px 33px rgba(95, 82, 82, 0.2) !important;
 }
-.dropDown{
+.dropDown {
   font-size: 0.85vw;
   padding: 5px 10px;
   font-weight: 400;
@@ -105,26 +89,29 @@ position: absolute;
   border: none;
   outline: none;
   background-color: #fff;
-  width: 10rem;
+  width: 100%;
+  max-width: 10rem;
 }
-.button{
+
+.button {
   color: #292929;
   font-size: 0.85vw;
   font-weight: 700;
-  letter-spacing: -.02em!important;
+  letter-spacing: -0.02em !important;
   display: inline-block;
   margin-top: 5%;
-  border: 2px solid transparent!important;
+  border: 2px solid transparent !important;
   padding: 10px 14px;
   cursor: pointer;
   line-height: normal;
-  width:30%;
-  height:3rem;
+  width: 100%;
+  max-width: 10rem;
+  height: 3rem;
   background: #fce862;
   border-radius: 5px;
-  box-shadow: 0 3px 33px rgba(0,0,0,.12);
+  box-shadow: 0 3px 33px rgba(0, 0, 0, 0.12);
 }
-.button:hover{
+.button:hover {
   background: #fbed56;
 }
 /* .radio{
@@ -157,21 +144,145 @@ position: absolute;
   background-color: #fbed56;
   border: 3px solid #1e8bc3;
 } */
-.slider{
-  background-color: #1F8BC3;
+.slider {
+  background-color: #1f8bc3;
   display: flex;
-align-items: center;
+  align-items: center;
 }
 
-.value{
+.navbar {
+  width: 11%;
+}
+
+.image {
+  /* height: "15%"; */
+  padding-left: 20px;
+  width: 80%;
+}
+
+.value {
   font-size: 0.85vw;
   font-family: "proxima-soft,sans-serif";
   font-weight: 600;
   margin-left: 10%;
-  color:#FBED55;
+  color: #fbed55;
 }
-.answer{
-  padding: 3vw;
+
+.answer {
+  padding-left: 3vw;
+  padding-top: 2vw;
   color: white;
   /* font-size: 0.85vw; */
 }
+
+.main-div {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5.04rem;
+  margin-bottom: 3rem;
+  width: 100vw;
+  height: 85vh;
+}
+
+.first-div {
+  width: 30vw;
+  background-color: #1e7faf;
+}
+
+.second-div {
+  width: 70vw;
+  background-color: #1f8bc3;
+}
+/* @media only screen and (min-width: 320px) and (max-width: 768px) {
+  .navbar {
+    width: 20%;
+  }
+  .image {
+    width: 100%;
+  }
+  .main-div {
+    flex-direction: column;
+  }
+  .first-div {
+    width: 100vw;
+  }
+  .second-div {
+    width: 100vw;
+  }
+  .box {
+    width: 20rem;
+  }
+} */
+@media only screen and (max-width: 320px){
+.footer{
+  height:15px;
+  font-size: 7px;
+}
+.navbar {
+  width: 25%;
+}
+} 
+@media only screen and (min-width: 768px) {
+ 
+
+  .heading {
+    font-size: 20px;
+  }
+  .dropDown {
+    font-size: 1rem;
+  }
+  
+  .button {
+    font-size: 1rem;
+  }
+
+}
+@media only screen and (min-width: 768px) and (max-width:992px){
+  .footer{
+    height: 40px;
+    font-size:14px ;
+  }
+  .navbar{
+    width:15%
+
+  }
+}
+@media only screen and (min-width:320px) and (max-width: 767px) {
+  .topic {
+    font-size: 14px;
+    width: 100%;
+    margin-right: 0;
+  }
+  .footer {
+    height: 20px;
+    font-size: 10px;
+  }
+
+
+  .box {
+    width: 100%;
+    margin-top: 5%;
+    padding: 5vw;
+  }
+  .navbar {
+    width: 20%;
+  }
+
+  .image {
+    width: 70%;
+  }
+
+  .value {
+    font-size: 1rem;
+  }
+  .main-div {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .first-div,
+  .second-div {
+    width: 90%;
+  }
+}
+

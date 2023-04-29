@@ -7,8 +7,10 @@ import TextExtractor from "./QuestionAnswerExtractor";
 import { Slider } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "@fortawesome/fontawesome-free/css/all.css";
+
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [question, setQuestion] = useState("");
@@ -16,7 +18,7 @@ function App() {
   const [answer, setAnswer] = useState("");
   const [grade, setGrade] = useState(1);
   const [value, setValue] = useState(4);
-  const [isLoading,setIsLoading]=useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   // const [selectedOption, setSelectedOption] = useState("Easy");
 
   const changeValue = (event, value) => {
@@ -36,20 +38,20 @@ function App() {
   // const onValueChange = (event) => {
   //   setSelectedOption(event.target.value);
   // };
-  const notify = () => toast.error('Please fill Topic/Subject field', {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "colored",
+  const notify = () =>
+    toast.error("Please fill Topic/Subject field", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
     });
   const muiTheme = createTheme({
     overrides: {
       MuiSlider: {
-      
         thumb: {
           color: "#F1527E",
           height: 25,
@@ -60,92 +62,85 @@ function App() {
         track: {
           color: "#FBED55",
           height: 8,
-          padding:0,
+          padding: 0,
           borderRadius: "25px",
         },
         rail: {
           color: "white",
           height: 8,
           borderRadius: "25px",
-          padding:0
+          padding: 0,
         },
       },
     },
   });
   const handleSubmit = async (event) => {
     event.preventDefault();
-if(!question){
-  notify()
-}
-else{
-  setIsLoading(true)
-    // const prompt = `generate a question and answer for the following text: ${question}`;
-    // const prompt = `${value} ${selectedOption} one liner questions and answers related to ${question} for grade ${grade}`;
-    const prompt= `generate ${value}  jeopardy questions with answer for ${grade} grade student on ${question}`
+    if (!question) {
+      notify();
+    } else {
+      setIsLoading(true);
+      // const prompt = `generate a question and answer for the following text: ${question}`;
+      // const prompt = `${value} ${selectedOption} one liner questions and answers related to ${question} for grade ${grade}`;
+      const prompt = `generate ${value}  jeopardy questions with answer for ${grade} grade student on ${question}`;
 
-    const apiKey = "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";
-    const apiUrl = "https://api.openai.com/v1/completions";
+      const apiKey = "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";
+      const apiUrl = "https://api.openai.com/v1/completions";
 
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    };
-    let temperature = parseFloat((0.4 + relevancy/10).toFixed(1));
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      };
+      let temperature = parseFloat((0.4 + relevancy / 10).toFixed(1));
 
+      const data = {
+        prompt,
+        max_tokens: 500,
+        model: "text-davinci-003",
+        n: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+        temperature: temperature,
+        top_p: 1,
+      };
 
-    const data = {
-      prompt,
-      max_tokens: 500,
-      model: "text-davinci-003",
-      n: 1,
-      frequency_penalty: 0,
-      presence_penalty: 0,
-      temperature: temperature,
-      top_p: 1,
-    
-    };
+      try {
+        const response = await axios.post(apiUrl, data, { headers });
+        // for (let i=0;i<=5;i++){
+        //   console.log(response.data.choices[i].text)
+        //   setAnswer(oldArray => [...oldArray, response.data.choices[i].text])
 
-    try {
-      const response = await axios.post(apiUrl, data, { headers });
-      // for (let i=0;i<=5;i++){
-      //   console.log(response.data.choices[i].text)
-      //   setAnswer(oldArray => [...oldArray, response.data.choices[i].text])
+        // }
 
-      // }
-      setAnswer(response.data.choices[0].text);
-
-
-      
-    } catch (error) {
-      console.error(error);
+        setAnswer(response.data.choices[0].text);
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }
-  setIsLoading(false)
+    setIsLoading(false);
   };
 
   return (
     <>
       <div className="header">
-        <img src={logo} height="65%" style={{ paddingLeft: "20px" }} />
+        <div className="navbar">
+          <img src={logo} className="image" alt="factile_img" />
+        </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          marginTop: "5.04rem",
-          marginBottom: "3rem",
-          width: "100vw",
-          height: "85vh",
-        }}
-      >
-        <div style={{ width: "30vw", backgroundColor: "#1E7FAF" }}>
+      <div className="main-div">
+        <div className="first-div">
           <form
             onSubmit={handleSubmit}
             style={{ marginTop: "2rem", marginLeft: "2rem" }}
           >
             <div className="box">
               <label className="heading">Topic/Subject</label>
-              <input className="topic" type="text" value={question} onChange={handleChange} />
+              <input
+                className="topic"
+                type="text"
+                value={question}
+                onChange={handleChange}
+              />
             </div>
 
             <div className="box">
@@ -226,37 +221,36 @@ else{
                   onChange={changeRelevancy}
                 />
               </ThemeProvider>
-             
 
               <div className="value">{relevancy}</div>
             </div>
 
-           <button type="submit" className="button">
-           {isLoading?<Spinner/>: "Generate"}
+            <button type="submit" className="button">
+              {isLoading ? <Spinner /> : "Generate"}
             </button>
           </form>
         </div>
-        <div style={{ width: "70vw", backgroundColor: "#1F8BC3"  }}>
-        <ToastContainer
-position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="colored"
-/>
-{answer && <TextExtractor textField={answer}/>}
+        <div className="second-div">
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
+          {answer && <TextExtractor textField={answer} />}
 
           {/* {answer && <div className="answer">{answer}</div>} */}
           {/* {answer && <div>{answer.map((ans)=><div>{ans}</div>)}</div>} */}
         </div>
       </div>
       <div className="footer">
-        Limited knowledge of world and events after 2021
+        <p>Limited knowledge of world and events after 2021</p>
       </div>
     </>
   );
