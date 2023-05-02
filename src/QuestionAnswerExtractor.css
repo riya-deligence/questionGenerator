@@ -10,8 +10,8 @@
 }
 .form-check-input:not(:checked) {
   content: "";
-  position: absolute;
- 
+  /* position: absolute; */
+  vertical-align:middle;
   width: 1.5vw;
   height: 1.5vw;
   background:0 0;
@@ -23,8 +23,8 @@
 }
 .form-check-input:checked {
   content: "";
-  position: absolute;
- 
+  position: relative;
+  vertical-align:middle;
   width: 1.5vw;
   height: 1.5vw;
   background:#fbed56 ;
@@ -42,6 +42,7 @@ content: "\2713";
   left: .2vw;
   top:.1vw;
   font-weight: 900!important;
+  vertical-align:middle;
   /* line-height: .8!important; */
   color: #292929!important;
   transition: all .2s!important;
@@ -49,10 +50,14 @@ content: "\2713";
   /* font-family: 'Font Awesome'; */
     font-family: fontawesome; 
 }
-[type=checkbox]:not(:checked)+label,[type=checkbox]:checked+label {
+/* label+[type=checkbox]:not(:checked),label+[type=checkbox]:checked{ */
+/* [type=checkbox]:not(:checked)+label,[type=checkbox]:checked+label { */
+  label > input[type=checkbox]:not(:checked) + div,
+label > input[type=checkbox]:checked + div {
   position: relative;
   padding-left: 2em!important;
   cursor: pointer;
+  vertical-align:middle;
   font-size: 1.2rem!important;
   font-weight: 600!important;
   letter-spacing: .03em!important;
@@ -69,5 +74,8 @@ content: "\2713";
   font-size:.8vw
 }
 .form-check{
-  margin-top: .5rem;
+  margin-top: 1rem;
+}
+.copy-button{
+  margin-bottom: 4rem;
 }

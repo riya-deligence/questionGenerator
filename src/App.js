@@ -84,14 +84,14 @@ function App() {
       // const prompt = `${value} ${selectedOption} one liner questions and answers related to ${question} for grade ${grade}`;
       const prompt = `generate ${value}  jeopardy questions with answer for ${grade} grade student on ${question}`;
 
-      const apiKey = "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";
+      const apiKey = "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";
       const apiUrl = "https://api.openai.com/v1/completions";
 
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,
       };
-      let temperature = parseFloat((0.4 + relevancy / 10).toFixed(1));
+      let temperature = parseFloat((0.2 + relevancy / 10).toFixed(1));
 
       const data = {
         prompt,
