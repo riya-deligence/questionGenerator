@@ -3,6 +3,7 @@ import "./App.css";
 import axios from "axios";
 import logo from "./logo/logo.png";
 import Spinner from "./Spinner";
+import MCQExtractor from "./McQuestionExtractor";
 import TextExtractor from "./QuestionAnswerExtractor";
 import { Slider } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
@@ -11,6 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "@fortawesome/fontawesome-free/css/all.css";
 
 import "react-toastify/dist/ReactToastify.css";
+import GrowExample from "./loading";
 
 function App() {
   const [question, setQuestion] = useState("");
@@ -19,25 +21,37 @@ function App() {
   const [grade, setGrade] = useState(1);
   const [value, setValue] = useState(4);
   const [isLoading, setIsLoading] = useState(false);
-  // const [selectedOption, setSelectedOption] = useState("Easy");
+  const [isFactile, setIsFactile] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("multiple choice");
 
   const changeValue = (event, value) => {
+    setAnswer("");
+
     setValue(value);
   };
   const changeRelevancy = (event, value) => {
+    setAnswer("");
+
     setRelevancy(value);
   };
 
   const handleChange = (event) => {
-    // setAnswer([])
+    setAnswer("");
     setQuestion(event.target.value);
   };
   const gradeChange = (e) => {
-    setGrade(e.target.value);
+    setAnswer("");
+        setGrade(e.target.value);
   };
-  // const onValueChange = (event) => {
-  //   setSelectedOption(event.target.value);
-  // };
+  const onValueChange = (event) => {
+    setAnswer("");
+    setSelectedOption(event.target.value);
+    if (event.target.value === "multiple choice") {
+      setIsFactile(false);
+    } else {
+      setIsFactile(true);
+    }
+  };
   const notify = () =>
     toast.error("Please fill Topic/Subject field", {
       position: "top-right",
@@ -75,6 +89,7 @@ function App() {
     },
   });
   const handleSubmit = async (event) => {
+    setAnswer("")
     event.preventDefault();
     if (!question) {
       notify();
@@ -82,9 +97,9 @@ function App() {
       setIsLoading(true);
       // const prompt = `generate a question and answer for the following text: ${question}`;
       // const prompt = `${value} ${selectedOption} one liner questions and answers related to ${question} for grade ${grade}`;
-      const prompt = `generate ${value}  jeopardy questions with answer for ${grade} grade student on ${question}`;
+      const prompt = `generate ${value}  ${selectedOption} questions with answer for ${grade} grade student on ${question}`;
 
-      const apiKey = "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";
+      const apiKey = "your api key"
       const apiUrl = "https://api.openai.com/v1/completions";
 
       const headers = {
@@ -142,9 +157,10 @@ function App() {
                 onChange={handleChange}
               />
             </div>
+           
 
             <div className="box">
-              <label className="heading">Class</label>
+              <label className="heading">Grade</label>
               <select onChange={gradeChange} className="dropDown">
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -158,29 +174,29 @@ function App() {
                 <option value="10">10</option>
               </select>
             </div>
-            {/* <div className="box">
-              <label className="heading">Difficulty Level</label>
+            <div className="box">
+              <label className="heading">Question Type</label>
               <div className="radio">
                 <input
                   type="radio"
-                  value="Easy"
-                  checked={selectedOption === "Easy"}
+                  value="jeopardy"
+                  checked={selectedOption === "jeopardy"}
                   onChange={onValueChange}
                 />
-               
-                <label>Easy</label>
+
+                <label>Factile</label>
               </div>
               <div className="radio">
                 <input
                   type="radio"
-                  value="Intermediate"
-                  checked={selectedOption === "Intermediate"}
+                  value="multiple choice"
+                  checked={selectedOption === "multiple choice"}
                   onChange={onValueChange}
                 />
-               
-                <label>Intermediate</label>
+
+                <label>Choice</label>
               </div>
-              <div className="radio">
+              {/* <div className="radio">
                 <input
                   type="radio"
                   value="Hard"
@@ -189,8 +205,8 @@ function App() {
                 />
                
                 <label>Hard</label>
-              </div>
-            </div> */}
+              </div> */}
+            </div>
             <div className="box slider">
               <label className="heading">No. Of Question</label>
               <ThemeProvider theme={muiTheme}>
@@ -230,7 +246,7 @@ function App() {
             </button>
           </form>
         </div>
-        <div className="second-div">
+        <div className={isLoading ? "spinner-container" : "second-div"}>
           <ToastContainer
             position="top-right"
             autoClose={5000}
@@ -243,7 +259,11 @@ function App() {
             pauseOnHover
             theme="colored"
           />
-          {answer && <TextExtractor textField={answer} />}
+          
+          {isLoading && <GrowExample/>}
+          
+          {answer && isFactile && <TextExtractor textField={answer} />}
+          {answer && !isFactile && <MCQExtractor textField={answer} />}
 
           {/* {answer && <div className="answer">{answer}</div>} */}
           {/* {answer && <div>{answer.map((ans)=><div>{ans}</div>)}</div>} */}

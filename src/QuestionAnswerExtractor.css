@@ -69,9 +69,27 @@ label > input[type=checkbox]:checked + div {
   padding: 0;
   margin: 0;
 }
+.options{
+  
+    font-size: .8vw!important;
+    font-weight: 600!important;
+    letter-spacing: .03em!important;
+    padding: 0;
+    margin: 0;
+  
+}
+.answer {
+  padding-left: 3vw;
+  padding-top: 2vw;
+  color: white;
+  background-color: #1f8bc3;
+  /* font-size: 0.85vw; */
+}
 .answers{
   color:#fbed56;
-  font-size:.8vw
+  font-size:.8vw;
+  letter-spacing: .03em!important;
+
 }
 .form-check{
   margin-top: 1rem;
