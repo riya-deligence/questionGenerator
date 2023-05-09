@@ -1,5 +1,6 @@
+
 import { useState } from "react";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./QuestionAnswerExtractor.css";
 
 function MCQExtractor(props) {
@@ -7,10 +8,11 @@ function MCQExtractor(props) {
   const [checkedCheckboxes, setCheckedCheckboxes] = useState([]);
 
   // Split the text field into individual question and answer pairs
-  const input = textField;
+  const input =textField;
 
   const questionAnswerPairs = input.split(/\n\n(?=[0-9Q])/).filter(Boolean);
 
+  
   const questionsAndAnswers = questionAnswerPairs.map((pair) => {
     const [question, ...optionsAndAnswer] = pair.split(/\n{1,}/);
 

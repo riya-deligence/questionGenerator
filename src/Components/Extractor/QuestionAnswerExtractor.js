@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./QuestionAnswerExtractor.css";
 
 function TextExtractor(props) {
@@ -21,7 +21,9 @@ const questionAnswerPairs = input
 .slice(1);
 const questionsAndAnswers = questionAnswerPairs.map((pair) => {
   const [question, ...answerParts] = pair.split(
-    /\n|(?:Answer:|\(A\):|\(A\)|A:|A\.|(__\S+__)|\[A\]:|\[A\]|\[Answer\]:|\[Answer\]|\nA\d+\.\s+)(?<!\()\s*/
+    /\n|(?:Answer:|\(A\):|\(A\)|A:|A\.|(__\S+__)|\[A\]:|\[A\]|\[Answer\]:|\[Answer\]|\nA\d+\.\s+)(?:\()(?!<)\s*/
+
+    // /\n|(?:Answer:|\(A\):|\(A\)|A:|A\.|(__\S+__)|\[A\]:|\[A\]|\[Answer\]:|\[Answer\]|\nA\d+\.\s+)(?<!\()\s*/
     );    
     const answer = answerParts.join("").trim();
     return { question: question.trim(), answer: answer.trim() };

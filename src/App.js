@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./App.css";
 import axios from "axios";
-import logo from "./logo/logo.png";
-import Spinner from "./Spinner";
-import MCQExtractor from "./McQuestionExtractor";
-import TextExtractor from "./QuestionAnswerExtractor";
+import logo from "./Image/logo.png";
+import Spinner from "./Components/Spinners/CircleSpinner";
+import MCQExtractor from "./Components/Extractor/McQuestionExtractor";
+import TextExtractor from "./Components/Extractor/QuestionAnswerExtractor";
 import { Slider } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
@@ -12,7 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "@fortawesome/fontawesome-free/css/all.css";
 
 import "react-toastify/dist/ReactToastify.css";
-import GrowExample from "./loading";
+import GrowExample from "./Components/Spinners/growSpinner";
 
 function App() {
   const [question, setQuestion] = useState("");
@@ -99,7 +99,7 @@ function App() {
       // const prompt = `${value} ${selectedOption} one liner questions and answers related to ${question} for grade ${grade}`;
       const prompt = `generate ${value}  ${selectedOption} questions with answer for ${grade} grade student on ${question}`;
 
-      const apiKey = "your api key"
+      const apiKey = "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";
       const apiUrl = "https://api.openai.com/v1/completions";
 
       const headers = {
