@@ -11,10 +11,7 @@ function TextExtractor(props) {
    const input = textField;
 
  
-//   const questionAnswerPairs = input
-//   .split(/\n(?=\d+\.|Q:|\bQ\d+\b)/)
 
-//     // .slice(1);
 
 const questionAnswerPairs = input
 .split(/\n(?=(?:\d+\)|\d+\.\s+|\bQ\d+))/)
@@ -23,49 +20,13 @@ const questionsAndAnswers = questionAnswerPairs.map((pair) => {
   const [question, ...answerParts] = pair.split(
     /\n|(?:Answer:|\(A\):|\(A\)|A:|A\.|(__\S+__)|\[A\]:|\[A\]|\[Answer\]:|\[Answer\]|\nA\d+\.\s+)(?:\()(?!<)\s*/
 
-    // /\n|(?:Answer:|\(A\):|\(A\)|A:|A\.|(__\S+__)|\[A\]:|\[A\]|\[Answer\]:|\[Answer\]|\nA\d+\.\s+)(?<!\()\s*/
+   
     );    
     const answer = answerParts.join("").trim();
     return { question: question.trim(), answer: answer.trim() };
   });
 
-//   const questionAnswerPairs = input.split(/\n(?=\d+[\).\s]+Q:|Q.|\bQ\d+\b)/).slice(1);
-// console.log(questionAnswerPairs)
-//   const questionsAndAnswers = questionAnswerPairs.map((pair) => {
-//     console.log(pair)
-//     const [question, ...answerParts] = pair.split(
-//       /\n|(?:Answer:|\(A\):|\(A\)|A:|A\.|(__\S+__)|\[A\]:|\[A\]|\[Answer\]:|\[Answer\]|\nA\d+\.\s+)(?<!\()\s*/
-//     );
-//     console.log(question)
-//     console.log(answerParts)
-//     const answer = answerParts.join("").trim();
-//     console.log(answer)
-//     return { question: question.trim(), answer: answer.trim() };
-//   });
-
-  // const pairs = textField
-  //   .split(/\n(?=\d+\.|Q:|Q.|\bQ\d+\b)/)
-  //   .filter((item) => item.trim() !== "");
-
-  // // Map each pair to a question and answer object
-  // const questionsAndAnswers = pairs.map((pair) => {
-  //   const [question, ...answerParts] = pair.split(
-  //     // /\n?\(?(?:Answer:|\[A\d+\]|A\d+:|\(A\):|\(A\)|\bA\d+\b|A:|A\.|(__\S+__)|\[A\]:|\[A\]|\[Answer\])(?!\))(?:\)?|\n)/
-  //     /\n|(?:Answer:|\(A\):|\(A\)|A:|A\.|(__\S+__)|\[A\]:|\[A\]|\[Answer\]:|\[Answer\]|\nA\d+\.\s+)(?<!\()\s*/
-
-  //     );
-  //   // const [question, ...answerParts] = pair.split(/\n|(?:Answer:|\(A\):|\(A\)|A:|A\.|(__\S+__)|\[A\]:|\[A\]|\[Answer\]:|\[Answer\]|\nA\d+\.\s+)/);
-  //   const answer = answerParts.join("").trim();
-  //   if (question) {
-  //     return {
-  //       question: question.trim(),
-  //       answer: answer,
-  //       checked: false,
-  //     };
-  //   }
-  //   // if the question is undefined, return an empty object
-  //   return {};
-  // });
+// 
   const handleCheckboxChange = (index) => {
     const newCheckedCheckboxes = [...checkedCheckboxes];
     newCheckedCheckboxes[index] = !newCheckedCheckboxes[index];
