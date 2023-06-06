@@ -94,6 +94,145 @@ label > input[type=checkbox]:checked + div {
 .form-check{
   margin-top: 1rem;
 }
+
+
+.disabled,
+.disabled:hover,
+.disabled:active {
+ 
+  font-size: 0.85vw;
+  font-weight: 700;
+  letter-spacing: -0.02em !important;
+  display: inline-block;
+  margin-top: 5%;
+  border: 2px solid transparent !important;
+  padding: 10px 14px;
+ 
+  line-height: normal;
+  width: 100%;
+  max-width: 10rem;
+  height: 3rem;
+ 
+  border-radius: 5px;
+  box-shadow: 0 3px 33px rgba(0, 0, 0, 0.12);
+
+  background-color: #ccc;
+  color: #292929;
+  border-color: #ccc;
+  cursor: not-allowed;
+ }
+
+
+.dropdowns {
+  margin-top: 10px;
+  max-height: 0;
+  overflow: hidden;
+  display: flex;
+  min-width: 10rem;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.dropdowns.show {
+  max-height: 500px; 
+  animation: fadeInDown 0.5s ease-in-out forwards;
+}
+
+.dropdowns.hide {
+  animation: fadeOutUp 0.5s ease-in-out forwards;
+}
+
+.dropdown {
+  margin-bottom: 10px;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.dropdown.show {
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+
+
+/* .dropdowns {
+  margin-top: 10px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.dropdowns.show {
+  max-height: 500px;
+  animation: fadeInDown 0.5s ease-in-out forwards;
+}
+
+.dropdown {
+  margin-bottom: 10px;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.dropdown.show {
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+   100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}  */
+
 .copy-button{
+  min-width: 15rem;
   margin-bottom: 4rem;
 }

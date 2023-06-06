@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import "./App.css";
 import axios from "axios";
 import logo from "./Image/logo.png";
@@ -10,9 +10,10 @@ import { createTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { ToastContainer, toast } from "react-toastify";
 import "@fortawesome/fontawesome-free/css/all.css";
-
+import SearchableDropdown from "./Components/Dropdown/SearchableDropdown";
 import "react-toastify/dist/ReactToastify.css";
 import GrowExample from "./Components/Spinners/growSpinner";
+
 
 function App() {
   const [question, setQuestion] = useState("");
@@ -23,25 +24,59 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isFactile, setIsFactile] = useState(false);
   const [selectedOption, setSelectedOption] = useState("multiple choice");
-
+  const [selectedGame, setSelectedGame] = useState("");
+  // const [searchTerm, setSearchTerm] = useState("");
+  // const [filteredOptions, setFilteredOptions] = useState([]);
+  // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  // const dropdownRef = useRef(null);
+  const subject = [
+    "Mathematics",
+    "English",
+    "Physics",
+    "Chemistry",
+    "Accountancy",
+    "Biology",
+    "Science",
+    "Computers",
+    "Geography",
+    "History",
+    "Social studies",
+    "Physical Education",
+    "Arts",
+    "Architecture",
+    "Design",
+    "Journalism",
+    "Life skills",
+    "Moral Science",
+    "Philosophy",
+    "Environmental studies",
+    "Holi",
+    "Diwali",
+    "Economics",
+    "Political Science",
+    "World Language",
+  ];
+  const options = useMemo(() => {
+    return ["Game 1", "Game 2", "Game 3", "Game 4", "Game 5"];
+  }, []);
+  const gradeOptions = useMemo(() => {
+    return ["1", "2", "3", "4", "5","6","7","8","9","10"];
+  }, []);
   const changeValue = (event, value) => {
-    setAnswer("");
-
     setValue(value);
   };
   const changeRelevancy = (event, value) => {
-    setAnswer("");
-
     setRelevancy(value);
   };
 
   const handleChange = (event) => {
-    setAnswer("");
     setQuestion(event.target.value);
   };
+  const onEnteredTerm = (event) => {
+    setQuestion(event);
+  };
   const gradeChange = (e) => {
-    setAnswer("");
-        setGrade(e.target.value);
+    setGrade(e);
   };
   const onValueChange = (event) => {
     setAnswer("");
@@ -52,8 +87,8 @@ function App() {
       setIsFactile(true);
     }
   };
-  const notify = () =>
-    toast.error("Please fill Topic/Subject field", {
+  const notify = (msg) =>
+    toast.error(msg, {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -62,6 +97,7 @@ function App() {
       draggable: true,
       progress: undefined,
       theme: "colored",
+      zIndex: 10000,
     });
   const muiTheme = createTheme({
     overrides: {
@@ -89,17 +125,17 @@ function App() {
     },
   });
   const handleSubmit = async (event) => {
-    setAnswer("")
+    setAnswer("");
     event.preventDefault();
     if (!question) {
-      notify();
+      notify("Please fill Topic/Subject field");
     } else {
       setIsLoading(true);
       // const prompt = `generate a question and answer for the following text: ${question}`;
       // const prompt = `${value} ${selectedOption} one liner questions and answers related to ${question} for grade ${grade}`;
       const prompt = `generate ${value}  ${selectedOption} questions with answer for ${grade} grade student on ${question}`;
 
-      const apiKey = "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";
+      const apiKey = "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";
       const apiUrl = "https://api.openai.com/v1/completions";
 
       const headers = {
@@ -121,11 +157,6 @@ function App() {
 
       try {
         const response = await axios.post(apiUrl, data, { headers });
-        // for (let i=0;i<=5;i++){
-        //   console.log(response.data.choices[i].text)
-        //   setAnswer(oldArray => [...oldArray, response.data.choices[i].text])
-
-        // }
 
         setAnswer(response.data.choices[0].text);
       } catch (error) {
@@ -133,6 +164,52 @@ function App() {
       }
     }
     setIsLoading(false);
+  };
+
+  // useEffect(() => {
+  //   setFilteredOptions(options);
+  // }, [options]);
+
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+  //       setIsDropdownOpen(false);
+  //     }
+  //   };
+
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
+
+  // const handleInputChange = (event) => {
+  //   const value = event.target.value;
+  //   setSearchTerm(value);
+  //   filterOptions(value);
+  //   setIsDropdownOpen(true);
+  // };
+
+  // const handleOptionSelect = (option) => {
+  //   setSelectedGame(option);
+  //   setSearchTerm("");
+  //   setFilteredOptions(options);
+  //   setIsDropdownOpen(false);
+  // };
+
+  // const filterOptions = (searchTerm) => {
+  //   const filteredOptions = options.filter((option) =>
+  //     option.toLowerCase().includes(searchTerm.toLowerCase())
+  //   );
+  //   setFilteredOptions(filteredOptions);
+  // };
+
+  // const toggleDropdown = () => {
+  //   setIsDropdownOpen(!isDropdownOpen);
+  // };
+
+  const handleGameUpdate = (updatedGame) => {
+    setSelectedGame(updatedGame);
   };
 
   return (
@@ -156,12 +233,32 @@ function App() {
                 value={question}
                 onChange={handleChange}
               />
+              <div className="subject-list">
+                {subject
+                  .filter((item) => {
+                    const enteredTerm = question.toLowerCase();
+                    const subject = item.toLowerCase();
+                    return (
+                      enteredTerm &&
+                      subject.startsWith(enteredTerm) &&
+                      subject !== enteredTerm
+                    );
+                  })
+                  .map((item) => (
+                    <div
+                      onClick={() => onEnteredTerm(item)}
+                      key={item}
+                      className="subject-list-row"
+                    >
+                      {item}
+                    </div>
+                  ))}
+              </div>
             </div>
-           
 
             <div className="box">
               <label className="heading">Grade</label>
-              <select onChange={gradeChange} className="dropDown">
+              {/* <select onChange={gradeChange} className="dropDown dropdown-select">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -172,7 +269,8 @@ function App() {
                 <option value="8">8</option>
                 <option value="9">9</option>
                 <option value="10">10</option>
-              </select>
+              </select> */}
+              <SearchableDropdown options={gradeOptions} selectedOption={grade} setSelectedOption={gradeChange} useStyle2={true}/>
             </div>
             <div className="box">
               <label className="heading">Question Type</label>
@@ -196,16 +294,6 @@ function App() {
 
                 <label>Choice</label>
               </div>
-              {/* <div className="radio">
-                <input
-                  type="radio"
-                  value="Hard"
-                  checked={selectedOption === "Hard"}
-                  onChange={onValueChange}
-                />
-               
-                <label>Hard</label>
-              </div> */}
             </div>
             <div className="box slider">
               <label className="heading">No. Of Question</label>
@@ -259,11 +347,69 @@ function App() {
             pauseOnHover
             theme="colored"
           />
-          
-          {isLoading && <GrowExample/>}
-          
-          {answer && isFactile && <TextExtractor textField={answer} />}
-          {answer && !isFactile && <MCQExtractor textField={answer} />}
+
+          {isLoading && <GrowExample />}
+          {!isLoading && (
+            <div style={{ marginTop: "2rem" }}>
+                <SearchableDropdown options={options} selectedOption={selectedGame} useStyle2={false} setSelectedOption={handleGameUpdate}/>
+              {/* <div className="DropDown" ref={dropdownRef}>
+                <div className="dropdown-input-container">
+                  <input
+                    type="text"
+                    className="dropdown-input"
+                    value={selectedGame || searchTerm}
+                    onChange={handleInputChange}
+                    onClick={toggleDropdown}
+                    placeholder="Select a game.."
+                  />
+                  <div className="dropdown-icon" onClick={toggleDropdown}>
+                    <ExpandMoreIcon
+                      className={`dropdown-icon ${
+                        isDropdownOpen ? "up" : "down"
+                      }`}
+                    />
+                  </div>
+                </div>
+                {isDropdownOpen && (
+                  <ul
+                    className="dropdown-list"
+                    style={{ width: dropdownRef.current.offsetWidth }}
+                  >
+                    {searchTerm && filteredOptions.length === 0 ? (
+                      <li className="no-options">No options found</li>
+                    ) : (
+                      filteredOptions.map((option, index) => (
+                        <li
+                          key={index}
+                          className={`dropdown-item ${
+                            option === selectedGame ? "selected" : ""
+                          }`}
+                          onClick={() => handleOptionSelect(option)}
+                        >
+                          {option}
+                        </li>
+                      ))
+                    )}
+                  </ul>
+                )}
+              </div> */}
+            </div>
+          )}
+          {/* <Dropdown options={options} style={{marginTop:"10rem"}} /> */}
+          {answer && isFactile && (
+            <TextExtractor
+              textField={answer}
+              toast={notify}
+              selectedGame={selectedGame}
+            />
+          )}
+          {answer && !isFactile && (
+            <MCQExtractor
+              textField={answer}
+              toast={notify}
+              selectedGame={selectedGame}
+            />
+          )}
 
           {/* {answer && <div className="answer">{answer}</div>} */}
           {/* {answer && <div>{answer.map((ans)=><div>{ans}</div>)}</div>} */}

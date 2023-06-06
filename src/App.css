@@ -60,7 +60,8 @@ margin: auto;
 .topic {
   outline: none;
   font-size: 0.85vw;
-  border: 2px solid transparent;
+  border: none;
+  /* border: 2px solid transparent; */
   letter-spacing: 0;
   color: #292929;
   margin-right: 2em;
@@ -69,8 +70,30 @@ margin: auto;
   border-radius: 3px;
   font-weight: 500;
   line-height: normal;
+  
+  /* background-color: white; */
 }
+.subject-list{
+  position: absolute;
+  width: 75.5%;
+background-color: white;
+  
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+overflow: hidden;
+/* top:36px; */
+z-index: 99;
 
+display: flex;
+flex-direction: column;
+
+}
+.subject-list-row{
+cursor: pointer;
+text-align: left;
+margin: 2px 0;
+padding-left: 10px;
+}
 .box {
   display: block;
   background: #1f8bc3;
@@ -281,6 +304,7 @@ margin: auto;
 
   .image {
     width: 70%;
+    height:100%
   }
 
   .value {
@@ -328,6 +352,34 @@ margin: auto;
   }
  */
 
+ .dropdown-select {
+  position: relative;
+  width: 50vw;
+  padding: 8px;
+  margin-top: 4px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.dropdown-select option {
+  text-align: center;
+}
+
+.dropdown-select:hover {
+  background-color: black;
+  color: white;
+}
+
+.dropdown-select:active,
+.dropdown-select:focus {
+  background-color: #fbed55;
+}
+
+.dropdown-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 
 
