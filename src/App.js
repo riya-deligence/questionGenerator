@@ -135,7 +135,7 @@ function App() {
       // const prompt = `${value} ${selectedOption} one liner questions and answers related to ${question} for grade ${grade}`;
       const prompt = `generate ${value}  ${selectedOption} questions with answer for ${grade} grade student on ${question}`;
 
-      const apiKey = "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";
+      const apiKey = "";
       const apiUrl = "https://api.openai.com/v1/completions";
 
       const headers = {
@@ -166,47 +166,7 @@ function App() {
     setIsLoading(false);
   };
 
-  // useEffect(() => {
-  //   setFilteredOptions(options);
-  // }, [options]);
-
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //       setIsDropdownOpen(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
-
-  // const handleInputChange = (event) => {
-  //   const value = event.target.value;
-  //   setSearchTerm(value);
-  //   filterOptions(value);
-  //   setIsDropdownOpen(true);
-  // };
-
-  // const handleOptionSelect = (option) => {
-  //   setSelectedGame(option);
-  //   setSearchTerm("");
-  //   setFilteredOptions(options);
-  //   setIsDropdownOpen(false);
-  // };
-
-  // const filterOptions = (searchTerm) => {
-  //   const filteredOptions = options.filter((option) =>
-  //     option.toLowerCase().includes(searchTerm.toLowerCase())
-  //   );
-  //   setFilteredOptions(filteredOptions);
-  // };
-
-  // const toggleDropdown = () => {
-  //   setIsDropdownOpen(!isDropdownOpen);
-  // };
+  
 
   const handleGameUpdate = (updatedGame) => {
     setSelectedGame(updatedGame);
@@ -231,6 +191,7 @@ function App() {
                 className="topic"
                 type="text"
                 value={question}
+                placeholder="seperate subtopic by ( , ) eg.science,heart"
                 onChange={handleChange}
               />
               <div className="subject-list">
@@ -258,18 +219,7 @@ function App() {
 
             <div className="box">
               <label className="heading">Grade</label>
-              {/* <select onChange={gradeChange} className="dropDown dropdown-select">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select> */}
+             
               <SearchableDropdown options={gradeOptions} selectedOption={grade} setSelectedOption={gradeChange} useStyle2={true}/>
             </div>
             <div className="box">
