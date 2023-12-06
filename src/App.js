@@ -14,7 +14,6 @@ import SearchableDropdown from "./Components/Dropdown/SearchableDropdown";
 import "react-toastify/dist/ReactToastify.css";
 import GrowExample from "./Components/Spinners/growSpinner";
 
-
 function App() {
   const [question, setQuestion] = useState("");
   const [relevancy, setRelevancy] = useState(3);
@@ -60,7 +59,7 @@ function App() {
     return ["Game 1", "Game 2", "Game 3", "Game 4", "Game 5"];
   }, []);
   const gradeOptions = useMemo(() => {
-    return ["1", "2", "3", "4", "5","6","7","8","9","10"];
+    return ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
   }, []);
   const changeValue = (event, value) => {
     setValue(value);
@@ -131,10 +130,16 @@ function App() {
       notify("Please fill Topic/Subject field");
     } else {
       setIsLoading(true);
-      // const prompt = `generate a question and answer for the following text: ${question}`;
-      // const prompt = `${value} ${selectedOption} one liner questions and answers related to ${question} for grade ${grade}`;
+
       const prompt = `generate ${value}  ${selectedOption} questions with answer for ${grade} grade student on ${question}`;
 
+      //  const prompt = `Generate ${value} ${selectedOption} questions-answer pair${
+      //   grade ? " for " + grade + " grade" : ""
+      // } on ${question} like this: ${
+      //   selectedOption === "multiple choice"
+      //     ? "\n\n1. What is the answer to 3 + 4?\nA. 8\nB. 7\nC. 6\nD. 5\nAnswer: B. 7"
+      //     : "\n\n1. What is the answer to 3 + 4?\nAnswer:7"
+      // }`;
       const apiKey = "";
       const apiUrl = "https://api.openai.com/v1/completions";
 
@@ -142,12 +147,12 @@ function App() {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,
       };
-      let temperature = parseFloat((0.2 + relevancy / 10).toFixed(1));
+      let temperature = parseFloat((0.8 + Math.random() * 0.4).toFixed(2));
 
       const data = {
         prompt,
-        max_tokens: 500,
-        model: "text-davinci-003",
+        max_tokens: 1200,
+        model: "gpt-3.5-turbo-instruct",
         n: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
@@ -165,8 +170,6 @@ function App() {
     }
     setIsLoading(false);
   };
-
-  
 
   const handleGameUpdate = (updatedGame) => {
     setSelectedGame(updatedGame);
@@ -219,8 +222,13 @@ function App() {
 
             <div className="box">
               <label className="heading">Grade</label>
-             
-              <SearchableDropdown options={gradeOptions} selectedOption={grade} setSelectedOption={gradeChange} useStyle2={true}/>
+
+              <SearchableDropdown
+                options={gradeOptions}
+                selectedOption={grade}
+                setSelectedOption={gradeChange}
+                useStyle2={true}
+              />
             </div>
             <div className="box">
               <label className="heading">Question Type</label>
@@ -301,7 +309,12 @@ function App() {
           {isLoading && <GrowExample />}
           {!isLoading && (
             <div style={{ marginTop: "2rem" }}>
-                <SearchableDropdown options={options} selectedOption={selectedGame} useStyle2={false} setSelectedOption={handleGameUpdate}/>
+              <SearchableDropdown
+                options={options}
+                selectedOption={selectedGame}
+                useStyle2={false}
+                setSelectedOption={handleGameUpdate}
+              />
               {/* <div className="DropDown" ref={dropdownRef}>
                 <div className="dropdown-input-container">
                   <input
